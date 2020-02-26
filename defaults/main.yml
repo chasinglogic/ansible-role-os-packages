@@ -1,0 +1,7 @@
+---
+packages_install_fast: false
+packages_apt_globally_update_cache: true
+generic_packages: []
+deb_packages: []
+rpm_packages: []
+pacman_packages: []
