@@ -5,4 +5,4 @@
   become_user: root
   package:
     name: "{{ item.name | default(item) }}"
-    state: "{{ item.state | default(present) }}"
+    state: "{{ item.state | default('present') }}"
