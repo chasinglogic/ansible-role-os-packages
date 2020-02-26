@@ -1,0 +1,16 @@
+---
+- become: true
+  name: Converge
+  hosts: all
+  vars:
+    generic_packages:
+      - gcc
+      - git
+    pacman_packages:
+      - gcc-d
+    deb_packages:
+      - g++
+    rpm_packages:
+      - gcc-c++
+  roles:
+    - role: ansible-role-os-packages

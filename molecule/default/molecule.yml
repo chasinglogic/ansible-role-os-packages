@@ -1,0 +1,30 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  yamllint .
+platforms:
+  - name: debian9
+    image: debian:9
+  - name: ubuntu1804
+    image: ubuntu:18.04
+  - name: centos8
+    image: centos:8
+  - name: fedora
+    image: fedora:latest
+  - name: opensuse-tumbleweed
+    image: opensuse/tumbleweed
+  - name: opensuse-leap
+    image: opensuse/leap
+  - name: archlinux
+    image: archlinux:latest
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
