@@ -20,7 +20,10 @@ handle the various details of different package managers and the lists
 can be hard to cross-reference and keep up to date with each other.
 
 This role allows you to centralize your package lists in variable
-files so they are easily referenced with each other. 
+files so they are easily referenced with each other. It works in a 
+heterogeneous environment, if you have `deb_packages` specified but
+Ansible is not running against a host with apt installed the
+`deb_packages` they will just be ignored. No when conditions necessary.
 
 It is not recommend to use this role to install software that requires
 lots of configuration or other setup. For example Nextcloud, NGINX, or
@@ -39,6 +42,7 @@ Role Variables
 | generic_packages                      | A list of packages that will use the `package` module in Ansible. Many packages have generic and consistent names across Linux distributions. They should go in this variable.                                                                                             | list    | []      | no       |
 | deb_packages                          | A list of packages that will use the correct packaging module based on the target system in Ansible for .deb packages                                                                                                                                                                                 | list    | []      | no       |
 | rpm_packages                          | A list of packages that will use the correct packaging module based on the target system in Ansible for .rpm packages                                                                                                                                                                                 | list    | []      | no       |
+| pacman_packages                          | A list of packages that will use the pacman Ansible packaging module                                                                                                                                                                                 | list    | []      | no       |
 
 ### Specifying Dependencies
 
@@ -60,10 +64,10 @@ generic_packages:
     state: latest
 ```
 
-The apt_packages list additionally allows for the update\_cache option to be specified:
+The `deb_packages` list additionally allows for the `update_cache` option to be specified:
 
 ```yaml
-apt_packages:
+deb_packages:
   - name: gcc
     state: latest
     update_cache: yes
