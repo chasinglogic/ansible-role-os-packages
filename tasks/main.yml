@@ -1,0 +1,13 @@
+---
+- name: Update apt cache globally
+  become: true
+  become_user: root
+  apt:
+    update_cache: true
+  when: ansible_pkg_mgr == 'apt' and package_apt_globally_update_cache
+
+- include_tasks: explicit.yml
+  when: not packages_install_fast
+
+- include_tasks: fast.yml
+  when: packages_install_fast

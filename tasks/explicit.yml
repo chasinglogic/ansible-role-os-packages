@@ -1,0 +1,23 @@
+---
+- include_tasks: apt.yml
+  loop: "{{ deb_packages }}"
+  when: ansible_pkg_mgr == 'apt'
+
+- include_tasks: yum.yml
+  loop: "{{ rpm_packages }}"
+  when: ansible_pkg_mgr == 'yum'
+
+- include_tasks: dnf.yml
+  loop: "{{ rpm_packages }}"
+  when: ansible_pkg_mgr == 'dnf'
+
+- include_tasks: zypper.yml
+  loop: "{{ rpm_packages }}"
+  when: ansible_pkg_mgr == 'zypper'
+
+- include_tasks: pacman.yml
+  loop: "{{ pacman_packages }}"
+  when: ansible_pkg_mgr == 'pacman'
+
+- include_tasks: package.yml
+  loop: "{{ generic_packages }}"
