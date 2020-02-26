@@ -1,0 +1,36 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: check for tools
+      command: "gcc --version"
+      register: "gcc_cmd"
+
+    - name: check if installed
+      assert:
+        that: "gcc_cmd.rc == 0"
+
+    - name: check for tools
+      command: "g++ --version"
+      register: "gpp_cmd"
+
+    - name: check if installed
+      assert:
+        that: "gpp_cmd.rc == 0"
+
+    - name: check for tools
+      command: "git --version"
+      register: "git_cmd"
+
+    - name: check if installed
+      assert:
+        that: "git_cmd.rc == 0"
+
+    - name: check for gcc-d on Arch
+      when: ansible_pkg_mgr  == "pacman"
+      block:
+        - command: "gdc --version"
+          register: cmd
+        - name: gcc-d is installed
+          assert:
+            that: cmd.rc == 0

@@ -1,6 +1,5 @@
 ---
-- become: true
-  name: Converge
+- name: Converge
   hosts: all
   vars:
     generic_packages:
@@ -12,5 +11,7 @@
       - g++
     rpm_packages:
       - gcc-c++
-  roles:
-    - role: ansible-role-os-packages
+  tasks:
+    - name: "Include os-packages"
+      include_role:
+        name: "ansible-role-os-packages"

@@ -3,8 +3,7 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint: |
-  yamllint .
+lint: yamllint .
 platforms:
   - name: debian9
     image: debian:9
@@ -22,9 +21,5 @@ platforms:
     image: archlinux:latest
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
 verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  name: ansible
