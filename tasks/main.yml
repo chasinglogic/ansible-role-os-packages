@@ -4,10 +4,27 @@
   become_user: root
   apt:
     update_cache: true
-  when: ansible_pkg_mgr == 'apt' and package_apt_globally_update_cache
+  when: ansible_pkg_mgr == 'apt' and packages_apt_globally_update_cache
 
-- include_tasks: explicit.yml
-  when: not packages_install_fast
+- include_tasks: apt.yml
+  loop: "{{ deb_packages }}"
+  when: ansible_pkg_mgr == 'apt'
 
-- include_tasks: fast.yml
-  when: packages_install_fast
+- include_tasks: yum.yml
+  loop: "{{ rpm_packages }}"
+  when: ansible_pkg_mgr == 'yum'
+
+- include_tasks: dnf.yml
+  loop: "{{ rpm_packages }}"
+  when: ansible_pkg_mgr == 'dnf'
+
+- include_tasks: zypper.yml
+  loop: "{{ rpm_packages }}"
+  when: ansible_pkg_mgr == 'zypper'
+
+- include_tasks: pacman.yml
+  loop: "{{ pacman_packages }}"
+  when: ansible_pkg_mgr == 'pacman'
+
+- include_tasks: package.yml
+  loop: "{{ generic_packages }}"
