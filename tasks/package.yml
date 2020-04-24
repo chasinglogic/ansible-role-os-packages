@@ -1,8 +1,11 @@
 ---
 
-- name: Install {{ item.name | default(item) }}
+- name: Install {{ generic_packages }}
   become: true
   become_user: root
   package:
-    name: "{{ item.name | default(item) }}"
-    state: "{{ item.state | default('present') }}"
+    name: "{{ generic_packages }}"
+    state: "present"
+
+- include_tasks: package_spec.yml
+  loop: "{{ generic_package_specs }}"

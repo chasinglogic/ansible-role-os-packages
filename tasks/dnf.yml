@@ -1,8 +1,11 @@
 ---
 
-- name: Install {{ item.name | default(item) }}
+- name: Install {{ rpm_packages }}
   become: true
   become_user: root
   dnf:
-    name: "{{ item.name | default(item) }}"
-    state: "{{ item.state | default('present') }}"
+    name: "{{ rpm_packages }}"
+    state: "present"
+
+- include_tasks: dnf_spec.yml
+  loop: "{{ rpm_package_specs }}"

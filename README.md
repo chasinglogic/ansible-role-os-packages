@@ -35,18 +35,24 @@ all the details of their deployment.
 Role Variables
 --------------
 
-| Name                                  | Description                                                                                                                                                                                                                                                                | Type    | Default | Required |
-|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------:|:-------:|:--------:|
-| package\_apt\_globally\_update\_cache | Indicates if a global `apt update` should be run before package installs.                                                                                                                                                                                                  | boolean | true    | no       |
-| generic_packages                      | A list of packages that will use the `package` module in Ansible. Many packages have generic and consistent names across Linux distributions. They should go in this variable.                                                                                             | list    | []      | no       |
-| deb_packages                          | A list of packages that will use the correct packaging module based on the target system in Ansible for .deb packages                                                                                                                                                                                 | list    | []      | no       |
-| rpm_packages                          | A list of packages that will use the correct packaging module based on the target system in Ansible for .rpm packages                                                                                                                                                                                 | list    | []      | no       |
-| pacman_packages                          | A list of packages that will use the pacman Ansible packaging module                                                                                                                                                                                 | list    | []      | no       |
+| Name                                  | Description                                                                                                                                                                    | Type    | Default | Required |
+|---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------:|:-------:|:--------:|
+| package\_apt\_globally\_update\_cache | Indicates if a global `apt update` should be run before package installs.                                                                                                      | boolean | true    | no       |
+| generic_packages                      | A list of packages that will use the `package` module in Ansible. Many packages have generic and consistent names across Linux distributions. They should go in this variable. | list    | []      | no       |
+| deb_packages                          | A list of packages that will use the correct packaging module based on the target system in Ansible for .deb packages                                                          | list    | []      | no       |
+| rpm_packages                          | A list of packages that will use the correct packaging module based on the target system in Ansible for .rpm packages                                                          | list    | []      | no       |
+| pacman_packages                       | A list of packages that will use the pacman Ansible packaging module                                                                                                           | list    | []      | no       |
+| generic_package_specs                      | A list of package_specs that will use the `package` module in Ansible. Many packages have generic and consistent names across Linux distributions. They should go in this variable. | list    | []      | no       |
+| deb_package_specs                          | A list of package_specs that will use the correct packaging module based on the target system in Ansible for .deb package_specs                                                          | list    | []      | no       |
+| rpm_package_specs                          | A list of package_specs that will use the correct packaging module based on the target system in Ansible for .rpm package_specs                                                          | list    | []      | no       |
+| pacman_package_specs                       | A list of package_specs that will use the pacman Ansible packaging module                                                                                                           | list    | []      | no       |
+
 
 ### Specifying Dependencies
 
-The variables `generic_packages`, `apt_packages`, and `rpm_packages`
-are lists of packages to install. They can be simply be lists of strings for example:
+The variables `generic_packages`, `deb_packages`, `pacman_packages`, and `rpm_packages`
+are lists of packages to install. They are simply lists of strings
+that will be ensure to be installed:
 
 ```yaml
 generic_packages:
@@ -55,18 +61,24 @@ generic_packages:
   - vim
 ```
 
-They also allow for specifying the state on a per-package basis:
+### Use state's other than present
+
+The variables `generic_package_specs`, `deb_package_specs`, etc. are
+used for finer grained control over package installation. They can
+also be used to remove packages, install the latest version, or get
+specific listings of installed packages via loop variables in the
+Ansible output. To use a package spec it looks like the following:
 
 ```yaml
-generic_packages:
+generic_package_specs:
   - name: gcc
     state: latest
 ```
 
-The `deb_packages` list additionally allows for the `update_cache` option to be specified:
+The `deb_package_specs` list additionally allows for the `update_cache` option to be specified:
 
 ```yaml
-deb_packages:
+deb_package_specs:
   - name: gcc
     state: latest
     update_cache: yes

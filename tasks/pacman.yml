@@ -1,9 +1,11 @@
 ---
 
-- name: Install {{ item.name | default(item) }}
+- name: Install {{ pacman_packages }}
   become: true
   become_user: root
   pacman:
-    name: "{{ item.name | default(item) }}"
-    state: "{{ item.state | default('present') }}"
-    update_cache: "{{ item.update_cache | default(omit) }}"
+    name: "{{ pacman_packages }}"
+    state: "present"
+
+- include_tasks: pacman_spec.yml
+  loop: "{{ pacman_package_specs }}"
