@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/chasinglogic/ansible-role-os-packages/compare/v1.0.0...v1.0.1) (2020-07-02)
+
+
+### Bug Fixes
+
+* change the default for update apt cache globally ([3e7903a](https://github.com/chasinglogic/ansible-role-os-packages/commit/3e7903a0d7a82330cad512b1f5a50fe5ca966305))
+
 # 1.0.0 (2020-06-24)
 
 
