@@ -1,13 +1,14 @@
 ---
 galaxy_info:
   author: Mathew Robinson
-  role_name: os-packages
+  role_name: os_packages
   description: Install packages using variable files
   license: Apache
   min_ansible_version: 2.8
   platforms:
     - name: GenericLinux
   galaxy_tags:
-    - package_management
-    - os_packages
+    - package
+    - os
+    - management
     - packages
