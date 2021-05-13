@@ -37,7 +37,7 @@ Role Variables
 
 | Name                                  | Description                                                                                                                                                                    | Type    | Default | Required |
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------:|:-------:|:--------:|
-| package\_apt\_globally\_update\_cache | Indicates if a global `apt update` should be run before package installs.                                                                                                      | boolean | true    | no       |
+| packages\_apt\_globally\_update\_cache | Indicates if a global `apt update` should be run before package installs.                                                                                                      | boolean | true    | no       |
 | generic_packages                      | A list of packages that will use the `package` module in Ansible. Many packages have generic and consistent names across Linux distributions. They should go in this variable. | list    | []      | no       |
 | deb_packages                          | A list of packages that will use the correct packaging module based on the target system in Ansible for .deb packages                                                          | list    | []      | no       |
 | rpm_packages                          | A list of packages that will use the correct packaging module based on the target system in Ansible for .rpm packages                                                          | list    | []      | no       |
