@@ -6,6 +6,8 @@
   yum:
     name: "{{ rpm_packages }}"
     state: "present"
+  when: rpm_packages is defined
 
 - include_tasks: yum_spec.yml
   loop: "{{ rpm_package_specs }}"
+  when: rpm_package_specs is defined

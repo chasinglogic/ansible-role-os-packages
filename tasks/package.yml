@@ -6,6 +6,8 @@
   package:
     name: "{{ generic_packages }}"
     state: "present"
+  when: generic_packages is defined
 
 - include_tasks: package_spec.yml
   loop: "{{ generic_package_specs }}"
+  when: generic_package_specs is defined

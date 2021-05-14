@@ -6,6 +6,8 @@
   apt:
     name: "{{ deb_packages }}"
     state: "present"
+  when: deb_packages is defined
 
 - include_tasks: apt_spec.yml
   loop: "{{ deb_package_specs }}"
+  when: deb_package_specs is defined
