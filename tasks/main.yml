@@ -16,7 +16,8 @@
 
 - include_tasks: dnf.yml
   loop: "{{ rpm_packages }}"
-  when: ansible_pkg_mgr == 'dnf'
+  # Newer Fedora reports dnf5 as ansible_pkg_mgr so this catches all the cases.
+  when: ansible_pkg_mgr is regex('dnf.*')
 
 - include_tasks: zypper.yml
   loop: "{{ rpm_packages }}"
