@@ -4,28 +4,28 @@
   become_user: root
   ansible.builtin.apt:
     update_cache: true
-  when: ansible_pkg_mgr == 'apt' and packages_apt_globally_update_cache
+  when: ansible_facts["pkg_mgr"] == 'apt' and packages_apt_globally_update_cache
 
 - name: Install packages with apt
   ansible.builtin.include_tasks: apt.yml
   loop: "{{ deb_packages }}"
-  when: ansible_pkg_mgr == 'apt'
+  when: ansible_facts["pkg_mgr"] == 'apt'
 
 - name: Install packages with dnf
   ansible.builtin.include_tasks: dnf.yml
   loop: "{{ rpm_packages }}"
-  # Newer Fedora reports dnf5 as ansible_pkg_mgr so this catches all the cases.
-  when: ansible_pkg_mgr is regex('dnf.*')
+  # Newer Fedora reports dnf5 as ansible_facts["pkg_mgr"] so this catches all the cases.
+  when: ansible_facts["pkg_mgr"] is regex('dnf.*')
 
 - name: Install packages with zypper
   ansible.builtin.include_tasks: zypper.yml
   loop: "{{ rpm_packages }}"
-  when: ansible_pkg_mgr == 'zypper'
+  when: ansible_facts["pkg_mgr"] == 'zypper'
 
 - name: Install packages with pacman
   ansible.builtin.include_tasks: pacman.yml
   loop: "{{ pacman_packages }}"
-  when: ansible_pkg_mgr == 'pacman'
+  when: ansible_facts["pkg_mgr"] == 'pacman'
 
 - name: Install generic packages
   ansible.builtin.include_tasks: package.yml

@@ -27,7 +27,7 @@
         that: "git_cmd.rc == 0"
 
     - name: Check for gcc-d on Arch
-      when: ansible_pkg_mgr  == "pacman"
+      when: ansible_facts["pkg_mgr"]  == "pacman"
       block:
         - name: Check gdc version
           ansible.builtin.command: "gdc --version"
