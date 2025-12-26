@@ -5,18 +5,16 @@ driver:
   name: docker
 lint: yamllint .
 platforms:
-  - name: debian9
-    image: debian:9
-  - name: ubuntu1804
-    image: ubuntu:18.04
-  - name: centos8
-    image: centos:8
+  - name: debian
+    image: debian:latest
+  - name: ubuntu-lts
+    image: ubuntu:latest
   - name: fedora
     image: fedora:latest
   - name: opensuse-tumbleweed
-    image: opensuse/tumbleweed
+    image: opensuse/tumbleweed:latest
   - name: opensuse-leap
-    image: opensuse/leap
+    image: opensuse/leap:latest
   - name: archlinux
     image: archlinux:latest
 provisioner:
