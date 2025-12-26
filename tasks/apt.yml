@@ -3,11 +3,12 @@
 - name: Install {{ deb_packages }}
   become: true
   become_user: root
-  apt:
+  ansible.builtin.apt:
     name: "{{ deb_packages }}"
     state: "present"
   when: deb_packages is defined
 
-- include_tasks: apt_spec.yml
+- name: Install deb_package_specs
+  ansible.builtin.include_tasks: apt_spec.yml
   loop: "{{ deb_package_specs }}"
   when: deb_package_specs is defined

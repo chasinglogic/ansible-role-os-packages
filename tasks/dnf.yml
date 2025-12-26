@@ -3,11 +3,12 @@
 - name: Install {{ rpm_packages }}
   become: true
   become_user: root
-  dnf:
+  ansible.builtin.dnf:
     name: "{{ rpm_packages }}"
     state: "present"
   when: rpm_packages is defined
 
-- include_tasks: dnf_spec.yml
+- name: Install rpm_package_specs
+  ansible.builtin.include_tasks: dnf_spec.yml
   loop: "{{ rpm_package_specs }}"
   when: rpm_package_specs is defined

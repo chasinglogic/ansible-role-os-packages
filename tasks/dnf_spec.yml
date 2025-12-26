@@ -3,6 +3,6 @@
 - name: Install {{ item.name | default(item) }}
   become: true
   become_user: root
-  dnf:
+  ansible.builtin.dnf:
     name: "{{ item.name | default(item) }}"
     state: "{{ item.state | default('present') }}"

@@ -3,11 +3,12 @@
 - name: Install {{ generic_packages }}
   become: true
   become_user: root
-  package:
+  ansible.builtin.package:
     name: "{{ generic_packages }}"
     state: "present"
   when: generic_packages is defined
 
-- include_tasks: package_spec.yml
+- name: Install generic_package_specs
+  ansible.builtin.include_tasks: package_spec.yml
   loop: "{{ generic_package_specs }}"
   when: generic_package_specs is defined

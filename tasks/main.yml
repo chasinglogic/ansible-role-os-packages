@@ -2,26 +2,31 @@
 - name: Update apt cache globally
   become: true
   become_user: root
-  apt:
+  ansible.builtin.apt:
     update_cache: true
   when: ansible_pkg_mgr == 'apt' and packages_apt_globally_update_cache
 
-- include_tasks: apt.yml
+- name: Install packages with apt
+  ansible.builtin.include_tasks: apt.yml
   loop: "{{ deb_packages }}"
   when: ansible_pkg_mgr == 'apt'
 
-- include_tasks: dnf.yml
+- name: Install packages with dnf
+  ansible.builtin.include_tasks: dnf.yml
   loop: "{{ rpm_packages }}"
   # Newer Fedora reports dnf5 as ansible_pkg_mgr so this catches all the cases.
   when: ansible_pkg_mgr is regex('dnf.*')
 
-- include_tasks: zypper.yml
+- name: Install packages with zypper
+  ansible.builtin.include_tasks: zypper.yml
   loop: "{{ rpm_packages }}"
   when: ansible_pkg_mgr == 'zypper'
 
-- include_tasks: pacman.yml
+- name: Install packages with pacman
+  ansible.builtin.include_tasks: pacman.yml
   loop: "{{ pacman_packages }}"
   when: ansible_pkg_mgr == 'pacman'
 
-- include_tasks: package.yml
+- name: Install generic packages
+  ansible.builtin.include_tasks: package.yml
   loop: "{{ generic_packages }}"

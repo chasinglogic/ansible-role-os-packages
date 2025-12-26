@@ -2,35 +2,36 @@
 - name: Verify
   hosts: all
   tasks:
-    - name: check for tools
-      command: "gcc --version"
+    - name: Check for tools
+      ansible.builtin.command: "gcc --version"
       register: "gcc_cmd"
 
-    - name: check if installed
-      assert:
+    - name: Check if installed
+      ansible.builtin.assert:
         that: "gcc_cmd.rc == 0"
 
-    - name: check for tools
-      command: "g++ --version"
+    - name: Check for tools
+      ansible.builtin.command: "g++ --version"
       register: "gpp_cmd"
 
-    - name: check if installed
-      assert:
+    - name: Check if installed
+      ansible.builtin.assert:
         that: "gpp_cmd.rc == 0"
 
-    - name: check for tools
-      command: "git --version"
+    - name: Check for tools
+      ansible.builtin.command: "git --version"
       register: "git_cmd"
 
-    - name: check if installed
-      assert:
+    - name: Check if installed
+      ansible.builtin.assert:
         that: "git_cmd.rc == 0"
 
-    - name: check for gcc-d on Arch
+    - name: Check for gcc-d on Arch
       when: ansible_pkg_mgr  == "pacman"
       block:
-        - command: "gdc --version"
+        - name: Check gdc version
+          ansible.builtin.command: "gdc --version"
           register: cmd
         - name: gcc-d is installed
-          assert:
+          ansible.builtin.assert:
             that: cmd.rc == 0

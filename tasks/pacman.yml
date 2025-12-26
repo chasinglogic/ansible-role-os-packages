@@ -3,9 +3,10 @@
 - name: Install {{ pacman_packages }}
   become: true
   become_user: root
-  pacman:
+  community.general.pacman:
     name: "{{ pacman_packages }}"
     state: "present"
 
-- include_tasks: pacman_spec.yml
+- name: Install pacman_package_specs
+  ansible.builtin.include_tasks: pacman_spec.yml
   loop: "{{ pacman_package_specs }}"
