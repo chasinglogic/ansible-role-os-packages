@@ -1,8 +1,0 @@
----
-
-- name: Install {{ item.name | default(item) }}
-  become: true
-  become_user: root
-  yum:
-    name: "{{ item.name | default(item) }}"
-    state: "{{ item.state | default('present') }}"
